@@ -63,9 +63,9 @@ jooq {
                 logging = Logging.WARN
                 jdbc {
                     driver = 'org.postgresql.Driver'
-                    url = 'postgres://pvufrcrqqefagq:38037e5246947ef26276092845f851feb77b0d0b21b46060318c3e36cde3c8e2@ec2-52-214-178-113.eu-west-1.compute.amazonaws.com:5432/d99b0p00grvdsl'
-                    user = 'pvufrcrqqefagq'
-                    password = '38037e5246947ef26276092845f851feb77b0d0b21b46060318c3e36cde3c8e2'
+                    url = System.getenv().get("DATABASE_URL")
+                    user = System.getenv().get("DATABASE_USER")
+                    password = System.getenv().get("DATABASE_PASSWORD")
                     properties {
                         property {
                             key = 'ssl'
@@ -96,9 +96,9 @@ jooq {
 }
 
 flyway {
-    url = 'postgres://pvufrcrqqefagq:38037e5246947ef26276092845f851feb77b0d0b21b46060318c3e36cde3c8e2@ec2-52-214-178-113.eu-west-1.compute.amazonaws.com:5432/d99b0p00grvdsl'
-    user = 'pvufrcrqqefagq'
-    password = '38037e5246947ef26276092845f851feb77b0d0b21b46060318c3e36cde3c8e2'
+    url = System.getenv().get("DATABASE_URL")
+    user = System.getenv().get("DATABASE_USER")
+    password = System.getenv().get("DATABASE_PASSWORD")
     driver = 'org.postgresql.Driver'
     schemas = ['public']
 }

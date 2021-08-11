@@ -7,4 +7,4 @@ task appNpmBuild(type: NpmTask) {
     args = ['run', 'build']
 }
 
-assemble.dependsOn(appNpmBuild)
+appNpmBuild.dependsOn(npmInstall)

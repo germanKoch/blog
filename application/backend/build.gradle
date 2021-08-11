@@ -7,6 +7,12 @@ plugins {
     id("org.flywaydb.flyway") version "7.12.1"
 }
 
+def db = [
+        url     : "jdbc:postgresql://" + System.getenv().get("DATABASE_HOST") + "/" + System.getenv().get("DATABASE_DB"),
+        user    : System.getenv().get("DATABASE_USER"),
+        password: System.getenv().get("DATABASE_PASSWORD"),
+]
+
 micronaut {
     runtime("netty")
     testRuntime("junit5")
@@ -63,9 +69,9 @@ jooq {
                 logging = Logging.WARN
                 jdbc {
                     driver = 'org.postgresql.Driver'
-                    url = System.getenv().get("DATABASE_URL")
-                    user = System.getenv().get("DATABASE_USER")
-                    password = System.getenv().get("DATABASE_PASSWORD")
+                    url = db["url"]
+                    user = db["user"]
+                    password = db["password"]
                     properties {
                         property {
                             key = 'ssl'
@@ -96,9 +102,9 @@ jooq {
 }
 
 flyway {
-    url = System.getenv().get("DATABASE_URL")
-    user = System.getenv().get("DATABASE_USER")
-    password = System.getenv().get("DATABASE_PASSWORD")
+    url = db["url"]
+    user = db["user"]
+    password = db["password"]
     driver = 'org.postgresql.Driver'
     schemas = ['public']
 }

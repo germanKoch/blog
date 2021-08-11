@@ -9,6 +9,7 @@ import ru.venchok.repository.mapper.ArticleMapper;
 
 import javax.inject.Singleton;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Singleton
 public class ArticleRepository {
@@ -24,7 +25,7 @@ public class ArticleRepository {
 
     public List<ArticleListItem> getList() {
         List<Article> articles = context.select().from(ARTICLE).fetch().into(Article.class);
-        return articles.stream().map(mapper::mapToItem).toList();
+        return articles.stream().map(mapper::mapToItem).collect(Collectors.toList());
     }
 
     public ArticleDetails getById(Long id) {
@@ -34,7 +35,7 @@ public class ArticleRepository {
 
     public List<ArticleListItem> getByCategory(String category) {
         List<Article> articles = context.select().from(ARTICLE).where(ARTICLE.CATEGORY.eq(category)).fetch().into(Article.class);
-        return articles.stream().map(mapper::mapToItem).toList();
+        return articles.stream().map(mapper::mapToItem).collect(Collectors.toList());
     }
 
 }

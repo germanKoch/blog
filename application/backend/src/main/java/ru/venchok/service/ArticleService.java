@@ -7,6 +7,7 @@ import ru.venchok.repository.ArticleRepository;
 
 import javax.inject.Singleton;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Singleton
 @RequiredArgsConstructor
@@ -16,7 +17,7 @@ public class ArticleService {
     private static final int PREVIEW_SIZE = 300;
 
     public List<ArticleListItem> getList() {
-        return repository.getList().stream().map(this::cutItemBody).toList();
+        return repository.getList().stream().map(this::cutItemBody).collect(Collectors.toList());
     }
 
     public ArticleDetails getById(Long id) {
@@ -24,7 +25,7 @@ public class ArticleService {
     }
 
     public List<ArticleListItem> getByCategory(String category) {
-        return repository.getByCategory(category).stream().map(this::cutItemBody).toList();
+        return repository.getByCategory(category).stream().map(this::cutItemBody).collect(Collectors.toList());
     }
 
     private ArticleListItem cutItemBody(ArticleListItem init) {

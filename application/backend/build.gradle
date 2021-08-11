@@ -4,6 +4,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.0.0"
     id("io.micronaut.application") version "1.5.4"
     id("nu.studer.jooq") version "6.0"
+    id("org.flywaydb.flyway") version "7.12.1"
 }
 
 micronaut {
@@ -36,13 +37,9 @@ dependencies {
 }
 
 task copyWebApp(type: Copy) {
-    from "$rootDir/application/frontend/build"
-    into "$rootDir/application/backend/build/resources/main/views/."
+    from("$rootDir/application/frontend/build")
+    into("$rootDir/application/backend/build/resources/main/views/.")
 }
-
-
-shadowJar.dependsOn(copyWebApp)
-compileJava.dependsOn(":frontend:build")
 
 
 application {
@@ -50,8 +47,8 @@ application {
 }
 
 java {
-    sourceCompatibility = JavaVersion.toVersion("16")
-    targetCompatibility = JavaVersion.toVersion("16")
+    sourceCompatibility = JavaVersion.toVersion("11")
+    targetCompatibility = JavaVersion.toVersion("11")
 }
 
 jooq {
@@ -98,6 +95,17 @@ jooq {
     }
 }
 
+flyway {
+    url = 'jdbc:postgresql://localhost:5432/blog'
+    driver = 'org.postgresql.Driver'
+    user = 'postgres'
+    password = 'postgres'
+    schemas = ['public']
+}
+
+shadowJar.dependsOn(copyWebApp)
+compileJava.dependsOn(":frontend:build")
+tasks.generateJooq.dependsOn(tasks.flywayMigrate)
 
 
 

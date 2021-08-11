@@ -63,9 +63,9 @@ jooq {
                 logging = Logging.WARN
                 jdbc {
                     driver = 'org.postgresql.Driver'
-                    url = 'jdbc:postgresql://localhost:5432/blog'
-                    user = 'postgres'
-                    password = 'postgres'
+                    url = 'postgres://pvufrcrqqefagq:38037e5246947ef26276092845f851feb77b0d0b21b46060318c3e36cde3c8e2@ec2-52-214-178-113.eu-west-1.compute.amazonaws.com:5432/d99b0p00grvdsl'
+                    user = 'pvufrcrqqefagq'
+                    password = '38037e5246947ef26276092845f851feb77b0d0b21b46060318c3e36cde3c8e2'
                     properties {
                         property {
                             key = 'ssl'
@@ -96,10 +96,10 @@ jooq {
 }
 
 flyway {
-    url = 'jdbc:postgresql://localhost:5432/blog'
+    url = 'postgres://pvufrcrqqefagq:38037e5246947ef26276092845f851feb77b0d0b21b46060318c3e36cde3c8e2@ec2-52-214-178-113.eu-west-1.compute.amazonaws.com:5432/d99b0p00grvdsl'
+    user = 'pvufrcrqqefagq'
+    password = '38037e5246947ef26276092845f851feb77b0d0b21b46060318c3e36cde3c8e2'
     driver = 'org.postgresql.Driver'
-    user = 'postgres'
-    password = 'postgres'
     schemas = ['public']
 }
 

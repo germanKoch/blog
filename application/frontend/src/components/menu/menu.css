@@ -1,0 +1,8 @@
+.menu {
+    background: #ffffff;
+    margin-bottom: 10px;
+}
+
+.menu-item {
+    cursor: pointer;
+}

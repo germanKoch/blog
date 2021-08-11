@@ -1,0 +1,28 @@
+micronaut:
+  application:
+    name: blog
+  views:
+    enabled: true
+  server:
+    cors:
+      enabled: true
+  router:
+    static-resources:
+      default:
+        paths:
+          - classpath:views/static
+          - classpath:views/img
+        mapping: "/static/**"
+        enabled: true
+
+datasources:
+  default:
+    url: jdbc:postgresql://localhost:5432/blog
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: postgres
+
+jooq:
+  datasources:
+    default:
+      sql-dialect: postgres

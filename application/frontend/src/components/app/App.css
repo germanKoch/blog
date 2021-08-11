@@ -1,0 +1,16 @@
+.app {
+    background: #f0f0f0;
+    min-height: 100%;
+}
+
+.app-block {
+    background: #ffffff;
+    box-shadow: 1px 1px 1px #b6b6b6;
+    padding: 5px 5px;
+    margin: 20px 10px;
+}
+
+.row-no-padding [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}

@@ -1,0 +1,14 @@
+.header {
+    background: #3a4a58;
+    padding: 5px;
+}
+
+.logo {
+    color: #ffffff;
+    font-size: 30px;
+    width: fit-content;
+}
+
+.logo-text {
+    text-decoration: none !important;
+}

@@ -1,0 +1,8 @@
+rootProject.name = "blog"
+
+include(":backend")
+include(":frontend")
+
+project(":backend").projectDir = file("application/backend")
+project(":frontend").projectDir = file("application/frontend")
+

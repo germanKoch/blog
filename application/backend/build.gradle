@@ -1,0 +1,103 @@
+import org.jooq.meta.jaxb.Logging
+
+plugins {
+    id("com.github.johnrengelman.shadow") version "7.0.0"
+    id("io.micronaut.application") version "1.5.4"
+    id("nu.studer.jooq") version "6.0"
+}
+
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("ru.venchok.*")
+    }
+}
+
+dependencies {
+    jooqGenerator("org.postgresql:postgresql:${property("postgresVersion")}")
+    annotationProcessor("org.projectlombok:lombok:${property("lombokVersion")}")
+    annotationProcessor("org.mapstruct:mapstruct-processor:${property("mapstructVersion")}")
+
+    implementation("io.micronaut.views:micronaut-views-thymeleaf:2.3.0")
+    implementation("org.mapstruct:mapstruct:${property("mapstructVersion")}")
+    implementation("org.postgresql:postgresql:${property("postgresVersion")}")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-runtime")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("io.micronaut.sql:micronaut-jooq")
+    implementation("io.micronaut:micronaut-validation")
+    implementation("javax.annotation:javax.annotation-api")
+
+    runtimeOnly("ch.qos.logback:logback-classic")
+    runtimeOnly(project(":frontend"))
+    compileOnly("org.projectlombok:lombok:${property("lombokVersion")}")
+}
+
+task copyWebApp(type: Copy) {
+    from "$rootDir/application/frontend/build"
+    into "$rootDir/application/backend/build/resources/main/views/."
+}
+
+
+shadowJar.dependsOn(copyWebApp)
+compileJava.dependsOn(":frontend:build")
+
+
+application {
+    mainClass.set("ru.venchok.Application")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("16")
+    targetCompatibility = JavaVersion.toVersion("16")
+}
+
+jooq {
+    version = '3.15.0'
+    edition = nu.studer.gradle.jooq.JooqEdition.OSS
+
+    configurations {
+        main {
+            generateSchemaSourceOnCompilation = true
+
+            generationTool {
+                logging = Logging.WARN
+                jdbc {
+                    driver = 'org.postgresql.Driver'
+                    url = 'jdbc:postgresql://localhost:5432/blog'
+                    user = 'postgres'
+                    password = 'postgres'
+                    properties {
+                        property {
+                            key = 'ssl'
+                            value = 'false'
+                        }
+                    }
+                }
+                generator {
+                    name = 'org.jooq.codegen.DefaultGenerator'
+                    database {
+                        name = 'org.jooq.meta.postgres.PostgresDatabase'
+                        inputSchema = 'public'
+                    }
+                    generate {
+                        deprecated = false
+                        records = true
+                        immutablePojos = true
+                        fluentSetters = true
+                    }
+                    target {
+                        packageName = 'ru.venchok.jooq'
+                    }
+                    strategy.name = 'org.jooq.codegen.DefaultGeneratorStrategy'
+                }
+            }
+        }
+    }
+}
+
+
+
+

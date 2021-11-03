@@ -24,7 +24,7 @@ public class ArticleService {
         return repository.getById(id);
     }
 
-    public List<ArticleListItem> getByCategory(String category) {
+    public List<ArticleListItem> getByCategory(Long category) {
         return repository.getByCategory(category).stream().map(this::cutItemBody).collect(Collectors.toList());
     }
 

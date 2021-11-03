@@ -33,7 +33,7 @@ public class ArticleRepository {
         return mapper.mapToDetails(article);
     }
 
-    public List<ArticleListItem> getByCategory(String category) {
+    public List<ArticleListItem> getByCategory(Long category) {
         List<Article> articles = context.select().from(ARTICLE).where(ARTICLE.CATEGORY.eq(category)).fetch().into(Article.class);
         return articles.stream().map(mapper::mapToItem).collect(Collectors.toList());
     }

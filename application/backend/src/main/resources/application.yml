@@ -18,9 +18,9 @@ micronaut:
 datasources:
   default:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://${DATABASE_HOST}/${DATABASE_DB}
-    username: ${DATABASE_USER}
-    password: ${DATABASE_PASSWORD}
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}/${DATABASE_DB:blog}
+    username: ${DATABASE_USER:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
 
 jooq:
   datasources:

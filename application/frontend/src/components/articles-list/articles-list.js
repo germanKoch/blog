@@ -1,6 +1,6 @@
 import React from "react";
 import ArticleItem from "../article-item";
-import ArticleService from "../../service";
+import ArticleService from "../../service/article";
 
 export default class ArticlesList extends React.Component {
 
@@ -11,8 +11,8 @@ export default class ArticlesList extends React.Component {
   };
 
   componentDidMount() {
-    const {category} = this.props;
-    this.articleService.getByCategory(category).then((itemList) => {
+    const {categoryId} = this.props;
+    this.articleService.getByCategory(categoryId).then((itemList) => {
       this.setState({
         itemList
       });
@@ -20,9 +20,9 @@ export default class ArticlesList extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.category !== this.props.category) {
-      const {category} = this.props;
-      this.articleService.getByCategory(category).then((itemList) => {
+    if (prevProps.categoryId !== this.props.categoryId) {
+      const {categoryId} = this.props;
+      this.articleService.getByCategory(categoryId).then((itemList) => {
         this.setState({
           itemList
         });

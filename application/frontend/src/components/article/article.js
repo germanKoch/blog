@@ -1,5 +1,5 @@
 import React from "react";
-import ArticleService from "../../service";
+import ArticleService from "../../service/article";
 import "./article.css";
 
 export default class Article extends React.Component {

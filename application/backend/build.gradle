@@ -7,10 +7,17 @@ plugins {
     id("org.flywaydb.flyway") version "7.12.1"
 }
 
+def db_cred = [
+        host    : System.getenv().get("DATABASE_HOST") ?: 'localhost',
+        user    : System.getenv().get("DATABASE_USER") ?: 'postgres',
+        db      : System.getenv().get("DATABASE_DB") ?: 'blog',
+        password: System.getenv().get("DATABASE_PASSWORD") ?: 'postgres',
+]
+
 def db = [
-        url     : "jdbc:postgresql://" + System.getenv().get("DATABASE_HOST") + "/" + System.getenv().get("DATABASE_DB"),
-        user    : System.getenv().get("DATABASE_USER"),
-        password: System.getenv().get("DATABASE_PASSWORD"),
+        url     : "jdbc:postgresql://" + db_cred["host"] + "/" + db_cred["db"],
+        user    : db_cred["user"],
+        password: db_cred["password"],
 ]
 
 micronaut {

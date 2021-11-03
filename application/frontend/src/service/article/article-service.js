@@ -1,4 +1,4 @@
-import BodyParser from "../formatter";
+import BodyParser from "../../formatter";
 
 export default class ArticleService {
 
@@ -29,8 +29,8 @@ export default class ArticleService {
     return this.getResource(`${id}`).then(res => this._convertArticle(res))
   }
 
-  getByCategory = async (category) => {
-    const res = this.getResource("category", {category: category})
+  getByCategory = async (categoryId) => {
+    const res = this.getResource("category", {categoryId: categoryId})
     return res.then(list => list.map(this._convertArticle))
   }
 

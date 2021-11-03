@@ -6,14 +6,14 @@ import Article from "../article";
 import "./articles-page.css"
 import {Route} from "react-router-dom";
 
-const ArticlesPage = ({category}) => {
+const ArticlesPage = ({categoryId}) => {
 
   return (
     <div className="row row-no-padding">
       <div className="col-2"/>
       <div className="col-8">
         <Route path="/articles" exact render={() => {
-          return <ArticlesList category={category}/>
+          return <ArticlesList categoryId={categoryId}/>
         }}/>
         <Route path="/articles/:id" exact render={({match}) => {
           return <Article id={match.params.id}/>

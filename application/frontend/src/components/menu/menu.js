@@ -1,51 +1,49 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import "./menu.css"
+import CategoryService from "../../service/category";
 
 export default class Menu extends React.Component {
 
+  categoryService = new CategoryService()
+
   state = {
-    activeKey: 1
+    activeKey: 0,
+    items: []
   }
 
-  items = [
-    {
-      key: 1,
-      category: "dev",
-      label: "Разработка"
-    },
-    {
-      key: 2,
-      category: "invest",
-      label: "Инвестирование"
-    },
-    {
-      key: 3,
-      category: "proj",
-      label: "Проекты"
-    }
-  ]
 
   onItemClick = (item) => {
     const {onMenuSwitched} = this.props
     this.setState({
-      activeKey: item.key
+      activeKey: item.id
     })
-    onMenuSwitched(item.category)
+    onMenuSwitched(item.id)
   }
 
+  componentDidMount() {
+    this.categoryService.getListItems().then((items) => {
+        this.setState({
+          items
+        });
+      }
+    )
+  }
+
+
   render() {
-    const content = this.items.map(item => {
+    console.log(this.items)
+    const content = this.state.items.map(item => {
       let classList = "nav-item"
       const {activeKey} = this.state
-      if (item.key === activeKey) {
+      if (item.id === activeKey) {
         classList += " active"
       }
       return (
-        <li className={classList} key={item.key}>
+        <li className={classList} key={item.id}>
           <Link to="/articles" className="nav-link menu-item" onClick={() => {
             this.onItemClick(item)
-          }}>{item.label}</Link>
+          }}>{item.title}</Link>
         </li>
       )
     })

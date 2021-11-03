@@ -29,8 +29,8 @@ public class ArticleController {
     }
 
     @Get("/category")
-    public HttpResponse<List<ArticleListItem>> getByCategory(@QueryValue String category) {
-        return HttpResponse.ok(service.getByCategory(category));
+    public HttpResponse<List<ArticleListItem>> getByCategory(@QueryValue Long categoryId) {
+        return HttpResponse.ok(service.getByCategory(categoryId));
     }
 
 }

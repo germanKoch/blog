@@ -4,7 +4,7 @@ import Header from "../header";
 import Menu from "../menu";
 import ArticlesPage from "../articles-page";
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import ArticleService from "../../service";
+import ArticleService from "../../service/article";
 
 export default class App extends React.Component {
 
@@ -28,7 +28,7 @@ export default class App extends React.Component {
           <Header/>
           <Menu onMenuSwitched={this.onMenuSwitched}/>
           <div className="container">
-            <ArticlesPage category={category}/>
+            <ArticlesPage categoryId={category}/>
           </div>
         </Router>
       </div>
